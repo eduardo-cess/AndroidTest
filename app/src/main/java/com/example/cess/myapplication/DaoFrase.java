@@ -101,7 +101,7 @@ public class DaoFrase extends SQLiteOpenHelper {
         String[] selectionArgs = {id};
 // Issue SQL statement.
         db.delete(DaoFraseContract.FraseEntry.TABLE_NAME, selection, selectionArgs);
-
+        db.close();
 
     }
 }

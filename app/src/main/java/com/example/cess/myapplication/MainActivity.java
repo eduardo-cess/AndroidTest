@@ -8,6 +8,7 @@ import android.support.annotation.StringDef;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
@@ -56,6 +57,20 @@ public class MainActivity extends AppCompatActivity {
         SimpleCursorAdapter adaptador = new SimpleCursorAdapter(getBaseContext(),R.layout.activity_display_message,cursor,nomeCampos,idViews, 0);
 
         lista.setAdapter(adaptador);
+
+        lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                cursor.moveToPosition(position);
+                String codigo = cursor.getString(cursor.getColumnIndexOrThrow("_id"));
+                String conteudo = cursor.getString(cursor.getColumnIndexOrThrow("conteudo"));
+                Intent intent = new Intent(MainActivity.this, MessagePage.class);
+                intent.putExtra("id", codigo);
+                intent.putExtra("conteudo", conteudo);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
 }
